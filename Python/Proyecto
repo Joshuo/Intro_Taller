@@ -1,0 +1,194 @@
+#Modulos
+
+import random
+import pygame
+import math
+
+#Constantes---------------------------------------------------------------------
+
+NEGRO = (0, 0, 0)
+BLANCO = (255, 255, 255)
+ROJO = (255, 0, 0)
+VERDE = (0, 255, 0)
+
+pantalla_ancho = 1200
+pantalla_largo = 650
+
+
+
+
+#Clases-------------------------------------------------------------------------
+
+class CarroV(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load("Imagenes/carro1/2.png")
+        self.rect = self.image.get_rect()
+        self.rect.centerx = 740
+        self.rect.centery = 40
+
+    def mover(self, vx1, vy1):
+        self.rect.move_ip(vx1, vy1)
+
+
+class CarroA(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load("Imagenes/carro2/2.png")
+        self.rect = self.image.get_rect()
+        self.rect.centerx = 740
+        self.rect.centery = 80
+
+    def mover(self, vx2, vy2):
+        self.rect.move_ip(vx2, vy2)
+
+class Proyectil(pygame.sprite.Sprite):
+    def __init__(self, posx, posy):
+        pygame.sprite.Sprite.__init__(self)
+        self.imageProyectil = pygame.image.load("Imagenes/bola-roja-icono-7411-128.png")
+        self.rect = self.image.get_rect()
+        self.velocidadDisparo = 15
+        self.rect.top = posy
+        self.rect.left = posx
+
+    def trayectoria(self):
+        pass
+
+class Menu:
+    def __init__(self, opciones):
+        pass
+
+    def actualizar(self):
+        pass
+
+    def imprimir(self, screen):
+        pass
+
+
+#Funciones----------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+pygame.init()
+
+def main():
+    pantalla = pygame.display.set_mode(([pantalla_ancho, pantalla_largo]), pygame.FULLSCREEN)
+    pygame.display.set_caption("pyDeathRace2.0")#Nombre de la ventana
+    hecho = False
+    pantallacompleta = False
+    
+    reloj = pygame.time.Clock()#Tiempo
+    segundos = 0
+
+    fuente1 = pygame.font.SysFont("Arial", 34, True, False)
+
+    ImagenFondo = pygame.image.load("Imagenes/fondo.jpg")
+    Pista1 = pygame.image.load("Imagenes/Mapa1.png")
+    
+    carro_jug1 = CarroV()
+    carro_jug2 = CarroA()
+
+    vx1, vy1= 0, 0#velocidad de jugador1
+    vx2, vy2= 0, 0#velociad de jugador 2
+    leftsigueapretada,rightsigueapretada,upsigueapretada,downsigueapretada=False,False,False,False
+    velocidad = 10
+
+    while not hecho:
+        keys = pygame.key.get_pressed()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                hecho = True
+
+
+
+            if event.type == pygame.KEYDOWN:
+                #Jugador1
+                if event.key == pygame.K_LEFT:
+                    leftsigueapretada=True
+                    vx1=-velocidad
+                if event.key == pygame.K_RIGHT:
+                    rightsigueapretada=True
+                    vx1=velocidad
+                if event.key== pygame.K_UP:
+                    upsigueapretada=True
+                    vy1=-velocidad
+                if event.key == pygame.K_DOWN:
+                    downsigueapretada=True
+                    vy1=velocidad
+                #Jugador2
+                if event.key == pygame.K_a:
+                    leftsigueapretada=True
+                    vx2=-velocidad
+                if event.key == pygame.K_d:
+                    rightsigueapretada=True
+                    vx2=velocidad
+                if event.key== pygame.K_w:
+                    upsigueapretada=True
+                    vy2=-velocidad
+                if event.key == pygame.K_s:
+                    downsigueapretada=True
+                    vy2=velocidad
+
+                if event.key == pygame.K_SPACE:
+                    pantallacompleta = not pantallacompleta
+                    if pantallacompleta:
+                        pygame.display.set_mode(([pantalla_ancho, pantalla_largo]), pygame.FULLSCREEN)
+                    else:
+                        pygame.display.set_mode(([pantalla_ancho, pantalla_largo]), 0)
+                    
+            if event.type == pygame.KEYUP:
+                #Jugador1
+                if event.key == pygame.K_LEFT:
+                    leftsigueapretada=False
+                    if rightsigueapretada:vx=velocidad
+                    else:vx1=0
+                if event.key == pygame.K_RIGHT:
+                    rightsigueapretada=False
+                    if leftsigueapretada:vx=-velocidad
+                    else:vx1=0
+                if event.key== pygame.K_UP:
+                    upsigueapretada=False
+                    if downsigueapretada:vy=velocidad
+                    else:vy1=-0
+                if event.key == pygame.K_DOWN:
+                    downsigueapretada=False
+                    if upsigueapretada:vy=-velocidad
+                    else:vy1=0
+                #Jugador2
+                if event.key == pygame.K_a:
+                    leftsigueapretada=False
+                    if rightsigueapretada:vx=velocidad
+                    else:vx2=0
+                if event.key == pygame.K_d:
+                    rightsigueapretada=False
+                    if leftsigueapretada:vx=-velocidad
+                    else:vx2=0
+                if event.key== pygame.K_w:
+                    upsigueapretada=False
+                    if downsigueapretada:vy=velocidad
+                    else:vy2=-0
+
+                if event.key == pygame.K_s:
+                    downsigueapretada=False
+                    if upsigueapretada:vy=-velocidad
+                    else:vy2=0
+                    
+
+
+
+        reloj.tick(60)
+        pantalla.blit(ImagenFondo, (0, 0))
+        pantalla.blit(Pista1, (0, 0))
+        carro_jug1.mover(vx1,vy1)
+        carro_jug2.mover(vx2,vy2)
+        pantalla.blit(carro_jug1.image, carro_jug1.rect)
+        pantalla.blit(carro_jug2.image, carro_jug2.rect)
+        segundos = pygame.time.get_ticks()/1000
+        segundos = str(segundos)
+        contador = fuente1.render(segundos, 0, NEGRO)
+        pantalla.blit(contador,(200,200))
+        pygame.display.flip()
+        pygame.display.update()
+        
+    pygame.quit()
+    
+main()
