@@ -1,0 +1,379 @@
+-
+def primo(num):
+    if isinstance (num, int) and (num > 1):
+        return primo_aux(num, num - 1)
+    else:
+        if (num == 0 or num == 1):
+            return print("Es un numero especial")
+        else:
+            return "Error"
+
+def primo_aux(num, contador):
+    if (contador == 1):
+        return print("Es un numero primo")
+    else:
+        if( num % contador == 0):
+            return print("Es un numero compuesto.")
+        else:
+            return primo_aux(num, contador - 1)
+-
+def descarte(lista, num):
+    if isinstance(lista, list):
+        return descarte_aux(lista, num)
+    else:
+        return "Error: el valor ingresado no es una lista." 
+
+def descarte_aux(lista, num):
+    if lista == []:
+        return []
+    else:
+        if lista [0] == num:
+            return descarte_aux(lista[1:], num)
+        else:
+            return [lista[0]] + descarte_aux(lista[1:], num)
+-
+import math
+
+def raiz(lista):
+    if isinstance(lista, list):
+        return  raiz_aux(lista)
+    else:
+        return "Error: el valor ingresado no es una lista."
+
+def raiz_aux(lista):
+    if lista == []:
+        return 0
+    else:
+        return math.sqrt(lista[0]) + raiz_aux(lista[1:])
+-
+def listaprimo(lista):
+    if isinstance(lista, list):
+        return listaprimo_aux(lista, lista[0] + 1)
+    else:
+        return "Error: el valor ingresado no es una lista."
+
+def listaprimo_aux(lista, contador):
+    if lista == []:
+        return 0
+    else:
+        if (lista[0] == 0 or lista[0] == 1 or lista[0] == 2 or lista[0] == 3):
+            return [lista[0]] + listaprimo_aux(lista[1:], contador)
+        else:
+            if (contador == 1):
+                return [lista[0]] + listaprimo_aux(lista[1:], contador)
+            else:
+                if(lista[0] % contador == 0):
+                    return listaprimo_aux(lista[1:], contador)
+                else:
+                    return listaprimo_aux(lista[1:], contador + 1)
+-
+def invertido(lista):
+    if isinstance (lista, list):
+        return invertido_aux(lista)
+    else:
+        return "El valor asignado no es una lista."
+
+def invertido_aux(lista):
+    if lista == []:
+        return []
+    else:
+        return [lista[-1]] + invertido_aux(lista[:-1])
+-
+def revise_num(num):
+    if isinstance(num, int):
+        entre0y4 = lambda digito : digito <=4
+        entre5y9 = lambda digito : digito >=5
+        return revise_aux(num, entreCeroyCuatro), revise_aux(num, entreCincoyNueve)
+    else:
+        return "Error"
+
+def revise_aux(num, condicion):
+    if num == 0:
+        return 0
+    else:
+        if condicion(num % 10):
+            return 1 + revise_aux(num // 10, condicion)
+        else:
+            return revise_aux(num // 10, condicion)
+-
+def binario(num):
+    if isinstance(num, int):
+        return binario_aux(num, 0)
+    else:
+        return "Error"
+
+def binario_aux(num, pot):
+    if num == 0:
+        return 0
+    else:
+        if (num%2 == 1):
+            return 1*(10**pot) + binario_aux(num//2, pot + 1)
+        else:
+            return 0*(10**pot) + binario_aux(num//2, pot + 1)
+-
+def decimal(num):
+    if isinstance(num, int):
+        return decimal_aux(num, 0)
+    else:
+        return "Error"
+
+def decimal_aux(num, pot):
+    if num == 0:
+        return 0
+    else:
+        return ((num%10)*(2**pot)) + decimal_aux(num // 10, pot + 1)
+-
+def largo(num):
+    if isinstance(num, int):
+        return largo_aux(num, 0)
+    else:
+        return "Error"
+
+def largo_aux(num, resultado):
+    if (num == 0):
+        return 0
+    else:
+        return largo_aux(num // 10, resultado + 1)
+-
+def dividir(num):
+    if isinstance(num, int):
+        return dividir_aux(num, 0, 0)
+    else:
+        "Error"
+
+def dividir_aux(num, resultado, pot):
+    if (num == 0):
+        return resultado
+    else:
+        if (num%10)%3 == 0:
+            return dividir_aux(num // 10, resultado, pot)
+        else:
+            return dividir_aux(num // 10, resultado + (num % 10)*10**pot, pot+1)
+-
+def multi(lista):
+    if isinstance(lista, list):
+        return multi_aux(lista, 1) and lista != []
+    else:
+        return "Error"
+
+def multi_aux(lista, resultado):
+    if lista == []:
+        return resultado
+    else:
+        return multi_aux(lista[1:], resultado * lista[0])
+-
+def mym(num, lista):
+    if isinstance(lista, list):
+        return mayor(num, lista, 0, 0)
+    else:
+        return "Error"
+
+def mayor(num, lista, indice, resultado):
+    if (indice == len(lista)):
+        return resultado
+    else:
+        if (num < lista[indice]):
+            return mayor(num, lista, indice + 1, resultado + 1)
+        else:
+            return mayor(num, lista, indice + 1, resultado)
+-
+def sumar(lista):
+    if isinstance(lista, list):
+        return sumar_lista(lista, 0)
+    else:
+        return "Error"
+
+def sumar_lista(lista, i):
+    if lista == []:
+        return 0
+    else:
+        if isinstance(lista[0], list):
+            return sumar_lista(lista[0], i) + sumar_lista(lista[1:], i)
+        else:
+            return lista[0]**(i+1) + sumar_lista(lista[1:], i+1)
+-
+def inter(num):
+    if isinstance(num, int):
+        return inter_aux(num, 0)
+    else:
+        return "Error"
+
+def inter_aux(num, con):
+    if num == 0:
+        return 0
+    else:
+        return (((num%100)//10*(10**con))+((num%100)%10*(10**(con+1))))+inter_aux(num//100, con + 2)
+-
+def largo(num):
+    if isinstance(num, int):
+        return largo_aux(num, 0)
+    else:
+        return "Error"
+
+def largo_aux(num, resultado):
+    if (num == 0):
+        return 0
+    else:
+        return largo_aux(num // 10, resultado + 1)
+-
+def dividir(num):
+    if isinstance(num, int):
+        return dividir_aux(num)
+    else:
+        "Error"
+
+def dividir_aux(num):
+    if (num == 0):
+        return 0
+    else:
+         if ((num%10)%3 == 0):
+             return dividir_aux(num // 10)
+-
+def lista2(lista):
+    if isinstance(lista, list) and lista != []:
+        return lista2_aux(lista, len(lista), 1, 0)
+    else:
+        return "Error"
+
+def lista2_aux(lista, largo, resultado, indice):
+    if indice == largo:
+        return resultado
+    else:
+        return lista2_aux(lista, largo, resultado * lista[indice], indice + 1)
+-
+def divisible(num):
+    if isinstance(num, int):
+        return divisible_aux(num, 0, 0)
+    else:
+        return "Error"
+
+def divisible_aux(num, result, pot):
+    if (num == 0):
+        return result
+    else:
+        if (num%10) % 3 == 0 and (num%10) !=1:
+            return divisible_aux(num // 10, result, pot)
+        else:
+            return divisible_aux(num // 10, result  + num % 10 * 10 ** pot, pot + 1)
+-
+def pares(lista):
+    if isinstance(lista, list):
+        return pares_aux(lista, len(lista), [], 0)
+    else:
+        return "ERROR"
+
+def pares_aux(lista, largo, result, indice):
+    if (indice == largo):
+        return result
+    else:
+        if (lista[indice]%2 == 0):
+            return pares_aux(lista, largo, [lista[indice]] + result, indice + 1)
+        else:
+            return pares_aux(lista, largo, result, indice + 1)
+-
+def BB2(num, lista):
+    if isinstance(num, int) and (lista, list):
+        return BB_aux2(num, lista, len(lista)//2)
+    else:
+        return "Error"
+
+def BB_aux2(num, lista, mitad):
+    if (lista == []):
+        return False
+    else:
+        if ((lista[mitad]) == num):
+            return True
+        else:
+            if ((lista[mitad]) > num):
+                return BB_aux2(num, lista[(mitad - 1):], mitad // 2)
+            else:
+                return BB_aux2(num, lista[:(mitad + 1)], mitad // 2)
+-
+    if isinstance(matriz,list) and len(matriz) == len(matriz[0]) and matriz !=[]:
+        return sumam_aux(matriz, 0, 0)
+    else:
+        return "Error"
+-
+def sumam(matriz):
+    if isinstance(matriz,list) and len(matriz) == len(matriz[0]) and matriz !=[]:
+        return sumam_aux(matriz, 0, 0)
+    else:
+        return "Error"
+
+def sumam_aux(matriz, indice, resultado):
+    if (len(matriz) == indice):
+        return resultado
+    else:
+        return sumam_aux(matriz, indice + 1, resultado + (matriz[indice][indice]))
+-
+def sumam2(matriz):
+    if isinstance(matriz,list) and len(matriz) == len(matriz[0]) and matriz !=[]:
+        return sumam_aux2(matriz, 0, 0)
+    else:
+        return "Error"
+
+def sumam_aux2(matriz, indice, resultado):
+    if (indice == len(matriz)):
+        return resultado
+    else:
+        return sumam_aux2(matriz, indice + 1, resultado + (matriz[indice][-(indice+1)]))
+-
+def sumafl(matriz):
+    if isinstance(matriz,list) and len(matriz) == len(matriz[0]) and matriz !=[]:
+        return sumam_auxfl(matriz, 0, 0, 0)
+    else:
+        return "Error"
+
+def sumam_auxfl(matriz, fila, columna, resultado):
+    if (indice == len(matriz)):
+        return resultado
+    else:
+        return sumam_aux2(matriz, indice + 1, resultado + (matriz[indice][-(indice+1)])
+-
+def crearm(n):
+    if isinstance(n, int) and n > 0:
+        return crearm_aux(n, [], [], 0, 0)
+    else:
+        return "ERROR"
+
+def crearm_aux(n, matriz, fila, indicefila, indicecolumna):
+    if indicefila == n:
+        return matriz
+    else:
+        if indicecolumna == n:
+            return crearm_aux(n, matriz + [fila], [], indicefila + 1, 0)
+        else:
+            return crearm_aux(n, matriz, fila + [0], indicefila, indicecolumna + 1)
+-
+def ordenar(lista):
+    if isinstance(lista, list) and lista != []:
+        return ordenar_aux(lista, 0, 0)
+    else:
+        return "ERROR"
+
+def ordenar_aux(lista, indice, repeticiones):
+    if (repeticiones == len(lista)-1):
+        return lista
+    else:
+        if (indice == len(lista)-1):
+            return ordenar_aux(lista, 0, repeticiones +1)
+        else:
+            if lista[indice] > lista[indice + 1]:
+                lista[indice], lista[indice + 1] - lista[indice + 1], indice[indice]
+            return oredenar_aux(lista, indice, repeticion
+-
+def traspuesta(matriz):
+    if isinstance(matriz, list) and matriz != []:
+        return tras_aux(matriz, [], [], 0, 0)
+    else:
+        return "Error"
+
+def tras_aux(matriz, filamatriz, traspuesta, fila, columna):
+    if columna == len(matriz[0]):
+        return traspueta
+    else:
+        if fila == len(matriz):
+            return tras_aux(matriz, [], traspuesta + [filamatriz], 0, columna + 1)
+        else:
+            return tras_aux(matriz, filamatriz + (matriz[fila][columna]), traspuesta, fila + 1, columna)
+-
